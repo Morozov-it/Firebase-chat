@@ -1,20 +1,31 @@
-import { useState } from 'react';
 import './App.css';
 import { Layout } from 'antd';
-
-import AppRouter from './components/AppRouter';
-import Navbar from './components/Navbar';
+import AppRouter from 'components/AppRouter';
+import Navbar from 'components/Navbar';
+import { useEffect } from 'react';
+import { useData } from 'Context';
+import { onAuthStateChanged } from "firebase/auth";
 
 
 
 const App = () => {
-  const [isAuth, setIsAuth] = useState(false)
+  const { auth, changeUser } = useData()
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        changeUser(user)
+      } else {
+        console.log('not authorized')
+      }
+    })
+  }, [])
 
   return (
     <Layout style={{height: '100%'}}>
-      <Navbar {...{isAuth, setIsAuth}} />
+      <Navbar />
       <Layout.Content style={{flex:'1 1 auto'}}>
-        <AppRouter isAuth={isAuth} />
+        <AppRouter />
       </Layout.Content>
       <Layout.Footer style={{textAlign: 'center'}}>@footer. The most important information</Layout.Footer>
     </Layout>

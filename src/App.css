@@ -4,6 +4,24 @@
     width: 100%;
     height: 100%;
 }
+.header-row {
+    display: flex;
+    justify-content: flex-end;
+    height: 100%;
+    max-width: 100%;
+    padding: 5px;
+}
+
+.img {
+    cursor: pointer;
+    border-radius: 50%;
+    overflow: hidden;
+}
+img{
+    max-height: 100%;
+    max-width: 100%;
+    display: block;
+}
 
 .ant-layout-content {
     display: flex;

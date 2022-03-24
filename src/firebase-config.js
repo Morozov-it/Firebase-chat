@@ -1,9 +1,9 @@
-import firebase from 'firebase';
-import "firebase/firestore";
-import 'firebase/auth';
+import { initializeApp } from 'firebase/app';
+import { getAuth } from "firebase/auth";
+import { GoogleAuthProvider } from "firebase/auth";
 
 
-firebase.initializeApp({
+const firebaseConfig ={
     apiKey: "AIzaSyBdQoLfl88dHfTlu4dOSfRL5thPi0HoFIo",
     authDomain: "chat-react-3e939.firebaseapp.com",
     projectId: "chat-react-3e939",
@@ -11,10 +11,9 @@ firebase.initializeApp({
     messagingSenderId: "324136777513",
     appId: "1:324136777513:web:e5ac14c16a9073eb686938",
     measurementId: "G-14P8PRKLP1"
-});
+};
 
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
 
-const auth = firebase.auth()
-const firestore = firebase.firestore()
-
-
+const provider = new GoogleAuthProvider();

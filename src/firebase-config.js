@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getAuth } from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
 
 
 const firebaseConfig ={
@@ -12,6 +13,9 @@ const firebaseConfig ={
     measurementId: "G-14P8PRKLP1"
 };
 
+//инициализация firebase профиля
 const app = initializeApp(firebaseConfig);
+//авторизация
 export const auth = getAuth(app);
-
+//подключение к бд
+export const db = getFirestore(app);

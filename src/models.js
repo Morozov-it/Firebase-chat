@@ -18,3 +18,10 @@ const user = {
     uid: "IpoR8NBGeLVLAKG2J9OlRHsGJw12",
     refreshToken: "AIwUaOlrgkMHVYemA4nv-IQIUokh-x-EH8DRj9Vmkvgzpq32MlGQQOJQ_ByXFlYb851OwJ6Y5507AFb7mySguFmw3LwnLAsjM0ctRFP5mQzVtAQQHWZJXn8CdPY9j9XQ0devEbfwNkRYXmbBAzEvPz1P8RKLHW8JIdCkta78O_tkZ04HnKZsKsjAGcyPyFJe9VEs5bwcOEJdR1Gmo0TCM0tlsqwZuFEcQw"
 }
+
+const message = {
+    createdAt: 'March 25, 2022 at 12:52:06 PM UTC+3',
+    email: "user3@gmail.com",
+    photoURL: null,
+    text: "456"
+}

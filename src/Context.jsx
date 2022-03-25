@@ -1,5 +1,5 @@
 import React, { createContext, useContext } from 'react';
-import { auth } from './firebase-config.js';
+import { auth, db } from './firebase-config.js';
 
 
 //создание контекста
@@ -9,7 +9,7 @@ const Context = createContext();
 export const DataProvider = ({ children }) => {
     return (
         <Context.Provider value={{
-            auth
+            auth, db
         }}>{children}</Context.Provider>
     )
 };

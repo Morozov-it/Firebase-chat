@@ -44,3 +44,10 @@ img{
 .ant-card-head-title {
     text-align: center;
 }
+
+.my-chat {
+    display: flex;
+    flex-direction: column;
+    width: 900px;
+    height: 80vh;
+}

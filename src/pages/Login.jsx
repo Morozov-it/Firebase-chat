@@ -27,7 +27,6 @@ const Login = () => {
 
     const signInGoogle = async () => {
         try { 
-            navigate(routes.CHAT)
             const user = await signInWithRedirect (auth, provider);
             changeUser(user)
         } catch (error) {

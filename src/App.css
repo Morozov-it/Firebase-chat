@@ -16,6 +16,7 @@
     align-items: center;
 }
 .email {
+    cursor: pointer;
     max-width: 100%;
     display: flex;
     justify-content: flex-end;

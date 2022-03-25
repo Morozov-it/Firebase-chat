@@ -1,14 +1,18 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { useData } from 'Context';
 import { useAuthState } from 'react-firebase-hooks/auth'
-import { privateRoutes, publicRoutes } from 'routes';
+import { privateRoutes, publicRoutes, routes } from 'routes';
+import Spinner from './Spinner';
 
 
 const AppRouter = () => {
     const { auth } = useData()
-    const [user] = useAuthState(auth)
+    const [user, loading, error] = useAuthState(auth)
 
+    if (loading) {
+        return (<Spinner />)
+    }
     return (
         <Routes>
             {user
@@ -19,7 +23,7 @@ const AppRouter = () => {
                 publicRoutes.map(route =>
                     <Route key={route.path} path={route.path} element={route.element}/>)
             }
-            <Route path='*' element={<h2>Loading...</h2>} />
+            <Route path='*' element={<Navigate to={routes.LOGIN}/>} />
         </Routes>
     )
 }

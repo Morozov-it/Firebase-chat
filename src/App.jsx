@@ -18,9 +18,10 @@ const App = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         changeUser(user)
-        console.log(user)
+        navigate(routes.CHAT)
       } else {
-        navigate(routes.LOGIN)
+        console.log('not authotized')
+        // navigate(routes.LOGIN)
       }
     })
   }, [])

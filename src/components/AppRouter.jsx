@@ -11,7 +11,7 @@ const AppRouter = () => {
 
     return (
         <Routes>
-            {user.uid
+            {user
                 ?
                 privateRoutes.map(route =>
                     <Route key={route.path} path={route.path} element={route.element}/>)

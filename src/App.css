@@ -11,6 +11,17 @@
     max-width: 100%;
     padding: 5px;
 }
+.logo {
+    display: flex;
+    align-items: center;
+}
+.email {
+    max-width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    color: white;
+}
 
 .img {
     cursor: pointer;

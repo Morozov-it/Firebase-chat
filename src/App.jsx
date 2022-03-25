@@ -5,18 +5,22 @@ import Navbar from 'components/Navbar';
 import { useEffect } from 'react';
 import { useData } from 'Context';
 import { onAuthStateChanged } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
+import { routes } from 'routes';
 
 
 
 const App = () => {
+  const navigate = useNavigate()
   const { auth, changeUser } = useData()
 
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         changeUser(user)
+        console.log(user)
       } else {
-        console.log('not authorized')
+        navigate(routes.LOGIN)
       }
     })
   }, [])

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Layout, Menu, Dropdown, Row  } from 'antd';
+import { Layout, Menu, Dropdown, Row, Avatar, Image  } from 'antd';
 import { routes } from 'routes';
 import { useData } from 'Context';
 import { signOut } from "firebase/auth";
@@ -44,10 +44,10 @@ const Navbar = () => {
                             </Menu>)}
                             trigger={['click']}>
                             <div className='email'>
-                                {user.email}
+                                {user.email.split("@")[0]}
                                 <div className='img'>
                                     {user.photoURL
-                                        ? <img src={user.photoURL} alt=''/>
+                                        ? <Avatar src={<Image src={user.photoURL} style={{ width: 40 }} />} />
                                         : <UserOutlined
                                             style={{ color: 'white', fontSize: '22px' }} />
                                     }

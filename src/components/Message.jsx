@@ -1,31 +1,41 @@
 import React from 'react';
-import { Card, Divider, Typography } from 'antd';
+import { Card, Divider, Typography, Avatar, Image } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 
 
 const Message = ({ createdAt, email, photoURL, text, isUser }) => {
-
     const ava = (
         <div className='img'>
             {photoURL
-                ? <img src={photoURL} alt=''/>
+                ? <Avatar src={<Image src={photoURL} style={{ width: 40 }} />} />
                 : <UserOutlined style={{ color: 'black', fontSize: '14px' }} />
             }
         </div>)
+    
+    const date = () => {
+        if (createdAt) {
+            return createdAt.toDate().toString().slice(0, -28)
+        } else {
+            return ''
+        }
+    }
 
     return (
         <Card
-            //title={email}
-            //extra={ava}
-            // style={{
-            //     marginLeft: isUser ? 'auto' : 0,
-            //     marginright: isUser ? 0 : 'auto',
-            //     maxWidth: '90%'
-        // }}
-        >1
-            {/* <Typography.Text>{text}</Typography.Text>
-            <Divider />
-            <Typography.Text type="secondary">{createdAt}</Typography.Text> */}
+            title={email.split("@")[0]}
+            extra={ava}
+            style={{
+                padding: 0,
+                margin: 2,
+                width: 'fit-content',
+                maxWidth: '80%',
+                alignSelf: isUser ?  'flex-end': 'flex-start',
+            }}>
+            <Typography.Text>{text}</Typography.Text>
+            <Divider style={{margin:0}}/>
+            <Typography.Text type="secondary">
+                {date()}
+            </Typography.Text>
         </Card>
     )
 }

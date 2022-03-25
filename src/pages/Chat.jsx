@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import { useData } from 'Context';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { collection, addDoc, serverTimestamp } from "firebase/firestore"; 
+import { collection, addDoc, serverTimestamp, query, orderBy } from "firebase/firestore"; 
 import { useAuthState } from 'react-firebase-hooks/auth'
 import { Input, Button, Card } from 'antd';
 import Spinner from 'components/Spinner';
@@ -10,25 +10,28 @@ import Message from 'components/Message';
 
 
 const Chat = () => {
-    const { auth } = useData()
-    const [ user ] = useAuthState(auth)
-    const { db } = useData()
-    const [value, setValue] = useState('')
+    const chatRef = useRef()
+    const { auth } = useData();
+    const [user] = useAuthState(auth);
+    const { db } = useData();
+    const [value, setValue] = useState('');
+    const messagesRef = collection(db, "messages");
+
     //хук для синхронизации данных от сервера
-    const [messages=[], loading] = useCollectionData(
-        collection(db, "messages")
+    const [messages = [], loading] = useCollectionData(
+        query(messagesRef, orderBy("createdAt"))
     )
 
     const sendMessage = async () => {
         try {
-            const docRef = await addDoc(collection(db, "messages"), {
+            await addDoc(collection(db, "messages"), {
                 email: user.email,
                 photoURL: user.photoURL,
                 text: value,
                 createdAt: serverTimestamp()
             });
-            setValue('')
-            console.log("Document written with ID: ", docRef.id);
+            setValue('');
+            chatRef.current.scrollTop = chatRef.current.scrollHeight
         } catch (error) {
             console.log(error.message)
         }
@@ -40,10 +43,10 @@ const Chat = () => {
 
     return (
         <div className='my-chat'>
-            <Card
+            <Card ref={chatRef}
                 title={user.displayName}
                 style={{ height: '90%', overflowY:'auto' }}>
-                <div>
+                <div className='messages'>
                     {messages.map(message => 
                         <Message
                             key={message.createdAt}

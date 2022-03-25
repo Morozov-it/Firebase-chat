@@ -5,7 +5,7 @@ import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import { routes } from 'routes'
 import { useData } from 'Context';
-import { signInWithRedirect , signInWithEmailAndPassword  } from "firebase/auth";
+import { signInWithPopup, signInWithEmailAndPassword, GoogleAuthProvider  } from "firebase/auth";
 import UiForm from 'components/UiForm';
 
 
@@ -13,22 +13,22 @@ import UiForm from 'components/UiForm';
 const Login = () => {
     const navigate = useNavigate()
     const [isError, setIsError] = useState('')
-    const { auth, provider, changeUser } = useData()
+    const { auth } = useData()
 
     const signIn = async (email, password) => {
         try {
-            const { user } = await signInWithEmailAndPassword(auth, email, password)
-            changeUser(user)
+            await signInWithEmailAndPassword(auth, email, password)
             navigate(routes.CHAT)
         } catch (error) {
             setIsError(error.message)
         }
     }
 
-    const signInGoogle = async () => {
+    const signInWithGoogle = async () => {
         try { 
-            const user = await signInWithRedirect (auth, provider);
-            changeUser(user)
+            const provider = new GoogleAuthProvider();
+            await signInWithPopup(auth, provider)
+            navigate(routes.CHAT)
         } catch (error) {
             setIsError(error.message)
         }
@@ -39,7 +39,7 @@ const Login = () => {
             <UiForm onSubmit={signIn} title={'sign in'}/>
             {isError && <Typography.Text type="danger">{isError}</Typography.Text>}
             <Button
-                onClick={signInGoogle}
+                onClick={signInWithGoogle}
                 style={{ width: '100%' }}>sign in with google</Button>
         </Card>
     )

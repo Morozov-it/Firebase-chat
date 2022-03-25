@@ -4,18 +4,18 @@ import { Layout, Menu, Dropdown, Row  } from 'antd';
 import { routes } from 'routes';
 import { useData } from 'Context';
 import { signOut } from "firebase/auth";
+import { useAuthState } from 'react-firebase-hooks/auth'
 import { UserOutlined, MessageOutlined } from '@ant-design/icons';
 
 
 const Navbar = () => {
-    const { auth, user, changeUser } = useData()
     const navigate = useNavigate()
+    const { auth } = useData()
+    const [user] = useAuthState(auth)
 
     const logout = async () => {
         try {
             await signOut(auth)
-            changeUser({})
-            navigate(routes.LOGIN)
         } catch (error) {
             console.log(error.message)
         }
@@ -36,7 +36,7 @@ const Navbar = () => {
                         onClick={() => navigate(routes.CHAT)} />
                 </div>
                 <div className='header-row'>
-                    {user.uid
+                    {user
                         ? <Dropdown overlay={(
                             <Menu style={{width: '100%', textAlign:'center'}}>
                                 <Menu.Item onClick={logout} key="0">quit</Menu.Item>

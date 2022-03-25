@@ -13,6 +13,9 @@ const AppRouter = () => {
     if (loading) {
         return (<Spinner />)
     }
+    if (error) {
+        return (<h2>some erorr occurred</h2>)
+    }
     return (
         <Routes>
             {user

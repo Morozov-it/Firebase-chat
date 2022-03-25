@@ -1,20 +1,15 @@
-import React, { createContext, useContext, useState } from 'react';
-import { auth, provider } from './firebase-config.js';
+import React, { createContext, useContext } from 'react';
+import { auth } from './firebase-config.js';
 
 
 //создание контекста
 const Context = createContext();
 
-
 //создание корневого компонента для доступа к его контексту дочерними компонентами
 export const DataProvider = ({ children }) => {
-    const [user, setUser] = useState({})
-    const changeUser = (newUser) => {
-        setUser(()=>({...newUser}))
-    }
     return (
         <Context.Provider value={{
-            user, changeUser, auth, provider
+            auth
         }}>{children}</Context.Provider>
     )
 };
